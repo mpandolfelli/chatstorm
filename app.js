@@ -35,6 +35,7 @@ app.set('views', __dirname + '/public/views');
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(express.static('public/js'));
+app.use(express.static('public/images'));
 app.use("/public", express.static((__dirname, 'public')));
 // Middlewares
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -42,7 +42,11 @@
             <li><span class="glyphicon glyphicon-remove"></span> Listado de usuarios</li>
             <li><span class="glyphicon glyphicon-ok"></span> Chat funcional</li>
             <li><span class="glyphicon glyphicon-remove"></span> Logout</li>
+            <li><span class="glyphicon glyphicon-ok"></span> Scroll de mensajes</li>
+            <li><span class="glyphicon glyphicon-ok"></span> Color verde furioso</li>
+            <li><span class="glyphicon glyphicon-ok"></span> Agregar enter</li>
          </ul>
+         <img src="images/gif.gif" width="52">
        </div>
      </div>
 
@@ -64,8 +68,10 @@
 
     <script type="text/javascript">
 
-    var socket = io('http://localhost:3000');
+   // var socket = io('http://localhost:3000');
+    var socket = io('http://www.turkin.com.ar:3000/');
     var yo = localStorage.getItem("username");
+    Notification.requestPermission();
 
     $(document).ready(function(){
       $('#comment').keypress(function(e) {
@@ -94,15 +100,36 @@
       });
     });
 
-   
-
+    var container = $('.chats');
+    
     
     socket.on('comment_to_me', function (data) {
+     
+
       $('.chats').append('<div class="chat yo"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      scrollTo = $('.chat').last();
+        container.scrollTop(
+           scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
     });
 
     socket.on('comment_to', function (data) {
+      var title = "chatStorm";
+      var extra = {
+        icon: "images/menem.jpg",
+        body: 'Tenes un mensaje bebote.'
+      }
+      // Lanzamos la notificación
+      var notification = new Notification( title, extra);      
+      setTimeout(function(){
+            notification.close(); //closes the notification
+        },8000); 
+
       $('.chats').append('<div class="chat"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      scrollTo = $('.chat').last();
+        container.scrollTop(
+           scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
     });
 
 
