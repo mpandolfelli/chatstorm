@@ -68,6 +68,17 @@
     var yo = localStorage.getItem("username");
 
     $(document).ready(function(){
+      $('#comment').keypress(function(e) {
+         if(e.which == 13) {
+             var comment = $('#comment').val();
+             if(comment != ''){
+               $('#comment').val('');
+               $('#comment').focus();
+               socket.emit('comment', { comment: comment, username: yo });
+             }
+
+         }
+      });
       $('.chat-messages').height($(window).height() - 90 - 65);
 
       $('#username').html(yo);

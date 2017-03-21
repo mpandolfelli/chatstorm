@@ -60,23 +60,23 @@ body{
 
 .login #register{
 	background-color: #000;
-	border: 1px solid green;
+	border: 1px solid #00ff00;
 }
 
 .login .btn{
 	background-color: #000;
-	border: 1px solid green;
+	border: 1px solid #00ff00;
 }
 
 .form-control:focus {
-    border-color: green;
+    border-color: #00ff00;
     outline: 0;
     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 }
 
 .yo{
-	color: green;
+	color: #00ff00;
 }
 
 .alert-danger{
@@ -85,7 +85,7 @@ body{
 	color: rgb(217, 92, 92)
 }
 .alert-success{
-	border: 1px solid green;
+	border: 1px solid #00ff00;
 	background-color: #000;
 	color: #fff
 }
