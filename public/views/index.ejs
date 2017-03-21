@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>chatStorm</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body class="app">
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12"><marquee> ***--- ChatStorm ---***</marquee></div>
+    </div>
+     <div class="row">
+       <div class="col-md-8 col-sm-9 chat-messages">
+         <div class="chats">
+
+            
+
+          </div>
+       </div>
+       <div class="col-md-4 col-sm-3">
+         <div class="alert alert-success" role="alert">Soy: <span id="username"></span></div> 
+         <div class="alert alert-danger" role="alert">Este espacio esta disponible.</div>
+
+
+         Mejoras: 
+         <ul class="mejoras">
+            <li><span class="glyphicon glyphicon-ok"></span> Login, registro, etc</li>
+            <li><span class="glyphicon glyphicon-remove"></span> Listado de usuarios</li>
+            <li><span class="glyphicon glyphicon-ok"></span> Chat funcional</li>
+            <li><span class="glyphicon glyphicon-remove"></span> Logout</li>
+         </ul>
+       </div>
+     </div>
+
+    </div>
+    <div class="chat-box">
+      <div class="row">
+        <div class="col-md-11 col-sm-9 col-xs-9"><input type="text" class="form-control" id="comment"/></div>
+        <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="send-comment">Enviar</a></div>
+      </div>
+      
+    </div>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/socket.io.js"></script>
+
+    <script type="text/javascript">
+
+    var socket = io('http://localhost:3000');
+    var yo = localStorage.getItem("username");
+
+    $(document).ready(function(){
+      $('.chat-messages').height($(window).height() - 90 - 65);
+
+      $('#username').html(yo);
+      
+      $('#send-comment').click(function(){
+        var comment = $('#comment').val();
+        if(comment != ''){
+          $('#comment').val('');
+          $('#comment').focus();
+          socket.emit('comment', { comment: comment, username: yo });
+        }
+        
+      });
+    });
+
+   
+
+    
+    socket.on('comment_to_me', function (data) {
+      $('.chats').append('<div class="chat yo"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+    });
+
+    socket.on('comment_to', function (data) {
+      $('.chats').append('<div class="chat"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+    });
+
+
+  </script>
+  </body>
+</html>

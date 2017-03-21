@@ -1,0 +1,114 @@
+body{
+	background-color: #000;
+	color: #fff;
+	font-family: Courier New;
+	overflow: hidden;
+}
+
+.chat-box{
+	position: fixed;
+	bottom: 0;
+	border-top: 1px solid #fff;
+	padding: 15px;
+	width: 100%;
+	z-index: 2;
+	background-color: #000;
+}
+
+.chat-messages{
+	border-right:1px solid #fff;
+	height: 800px
+}
+
+.btn{
+	border:1px solid #fff;
+	color: #fff
+}
+
+.form-control{
+	border:1px solid #fff;
+	color: #fff;
+	background-color: #000
+}
+
+
+
+.chat-messages{
+  display: table;
+    height: 800px;
+  
+    
+}
+.chats{
+	display: table-cell;
+    vertical-align: bottom;
+    width: 100%;
+    max-height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.login{
+	width: 400px;
+	margin: auto;
+	padding: 40px 20px;
+	border:1px solid #fff;
+}
+
+.login #register{
+	background-color: #000;
+	border: 1px solid green;
+}
+
+.login .btn{
+	background-color: #000;
+	border: 1px solid green;
+}
+
+.form-control:focus {
+    border-color: green;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+}
+
+.yo{
+	color: green;
+}
+
+.alert-danger{
+	border: 1px solid rgb(217, 92, 92);
+	background-color: #000;
+	color: rgb(217, 92, 92)
+}
+.alert-success{
+	border: 1px solid green;
+	background-color: #000;
+	color: #fff
+}
+
+.mejoras{
+	list-style-type: none;
+}
+
+.app marquee {
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 15px 0;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  outline: 10px dashed #E0E4CC;
+  box-shadow: 0 0 0 10px #69D2E7;
+  animation: 1s animateBorderOne ease infinite;
+}
+
+@keyframes animateBorderOne {
+  to {
+    outline-color: #69D2E7;
+    box-shadow: 0 0 0 10px #E0E4CC;
+  }
+}
