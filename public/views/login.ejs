@@ -63,8 +63,10 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.validate_es.js"></script>
-
+    <script src="js/socket.io.js"></script>
     <script type="text/javascript">
+
+    var socket = io('http://localhost:3000');
 
     $(document).ready(function(){
         
@@ -77,7 +79,7 @@
                 type: form.method,
                
                 success: function(response) {
-                  
+                  socket.emit('user_login', { username: response.username });
                   localStorage.setItem("username", response.username);
                  
                   window.location.replace("/");

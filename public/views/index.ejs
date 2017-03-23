@@ -33,6 +33,9 @@
        </div>
        <div class="col-md-4 col-sm-3">
          <div class="alert alert-success" role="alert">Soy: <span id="username"></span></div> 
+
+         <div class="alert alert-success" role="alert" id="users"></div> 
+         
          <div class="alert alert-danger" role="alert">Este espacio esta disponible.</div>
 
 
@@ -53,7 +56,7 @@
     </div>
     <div class="chat-box">
       <div class="row">
-        <div class="col-md-11 col-sm-9 col-xs-9"><input type="text" class="form-control" id="comment"/></div>
+        <div class="col-md-11 col-sm-9 col-xs-9"><div  class="form-control" id="comment" contenteditable="true"></div></div>
         <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="send-comment">Enviar</a></div>
       </div>
       
@@ -68,17 +71,20 @@
 
     <script type="text/javascript">
 
-   // var socket = io('http://localhost:3000');
-    var socket = io('http://www.turkin.com.ar:3000/');
+    var socket = io('http://localhost:3000');
+    //var socket = io('http://www.turkin.com.ar:3000/');
     var yo = localStorage.getItem("username");
     Notification.requestPermission();
 
     $(document).ready(function(){
       $('#comment').keypress(function(e) {
+
          if(e.which == 13) {
-             var comment = $('#comment').val();
+          e.preventDefault();
+            document.getElementById('comment').textContent;
+             var comment = document.getElementById('comment').textContent;
              if(comment != ''){
-               $('#comment').val('');
+               $('#comment').html('');
                $('#comment').focus();
                socket.emit('comment', { comment: comment, username: yo });
              }
@@ -90,14 +96,28 @@
       $('#username').html(yo);
       
       $('#send-comment').click(function(){
-        var comment = $('#comment').val();
+        var comment = document.getElementById('comment').textContent;
         if(comment != ''){
-          $('#comment').val('');
+          $('#comment').html('');
           $('#comment').focus();
           socket.emit('comment', { comment: comment, username: yo });
         }
         
       });
+    });
+
+    socket.on('users_to_me', function (data) {
+      console.log(data.users);
+      if(data.users.length > 0){
+        for(var i = 0; i <= data.users.length - 1 ; i++ ){
+          $('#users').append('<div>'+data.users[i]+'</div>');
+          
+
+        }
+      }
+
+      
+
     });
 
     var container = $('.chats');

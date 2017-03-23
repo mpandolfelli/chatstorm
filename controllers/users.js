@@ -4,12 +4,13 @@ var User  = mongoose.model('User');
 
 //GET - Return all users in the DB
 exports.findAllUsers = function(req, res) {
-	User.find(function(err, users) {
+	/*User.find(function(err, users) {
     if(err) res.send(500, err.message);
 
     console.log('GET /users')
 		res.status(200).jsonp(users);
-	});
+	});*/
+	res.send(500, 'Que buscás aca bebote?');
 };
 
 //GET - Return a user with specified ID
@@ -33,6 +34,7 @@ exports.findOne = function(req, res) {
 	  		if(user.userpass == req.params.userpass){
 	  			console.log('apalapapa');
 	  			req.session.username = user.username;
+	  			
 				res.status(200).jsonp(user);
 	  			
 

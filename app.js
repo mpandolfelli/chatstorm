@@ -20,9 +20,9 @@ app.use(expressSession({
     }));
 
 
-var users = [];
-var user = {};
 
+
+var users_connected = [];
 
 
 // Connection to DB
@@ -50,9 +50,16 @@ var UserCtrl = require('./controllers/users');
 
 var router = express.Router();
 router.get('/', function(req, res) {
-  //res.send("Hello world!");
-  console.log(req.session);
+ 
+ 
   if(req.session.username){
+    
+    /*if(users_connected.indexOf(req.session.username) == -1){
+      
+      users_connected.push(req.session.username);
+      console.log(users_connected);
+    }*/
+
     res.render('index', { user: req.user });
   }else{
     
@@ -92,17 +99,59 @@ users.route('/users/:username/:userpass')
 
 app.use('/api', users);
 
+
 // Start server
 
+var messages = {};
 
 
 io.on('connection', function (socket) {
+//  var room = new Room('8a', 1, socket.id);
+  
 
+
+  socket.emit('users_to_me', {users: users_connected});
+  socket.broadcast.emit('users_to', {users: users_connected});
+  
   socket.on('comment', function (data) {
+    //messages[data.username].count = 0;
+    
     if(data.comment != '' && data.username != ''){
       socket.emit('comment_to_me', {comment: data.comment, username: data.username});
       socket.broadcast.emit('comment_to', {comment: data.comment, username: data.username});
     }
      
   });
+
+  socket.on('user_login', function(data){
+
+    if(users_connected[data.username]){
+      //socket.emit("userInUse");
+      return;
+    }else{
+      console.log('sisi que si');
+      socket.username = data.username;
+      users_connected[data.username] = socket.username;
+      socket.emit('users_to_me', {users: users_connected});
+      socket.broadcast.emit('users_to', {users: users_connected});
+    }
+
+  });
+
+  socket.on('disconnect', function () {
+    socket.broadcast.emit('users_to', {users: users_connected});
+  });
 });
+
+
+var Room = function(name, id, owner){
+  this.users = 0;
+  this.name = name;
+  this.owner = owner;
+  this.id = id;
+}
+
+Room.prototype.addUser = function(user_id){
+  this.users.push(user_id);
+  console.log('Usuario agregado :'+user_id+' en sala: '+this.name);
+};
