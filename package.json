@@ -1,12 +1,37 @@
 {
-  "name": "node-api-rest",
-  "version": "2.0.0",
+  "name": "chatstorm",
+  "version": "0.0.1",
+  "description": "chatstorm es una aplicación anónima que no guarda ni recoleta información de sus usuarios",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mjhea0/node-bootstrap3-template.git"
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "template",
+    "twitter",
+    "bootstrap",
+    "bootstrap3"
+  ],
+  "author": "Martin Pandolfelli",
+  "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.5.1",
-    "ejs": "^2.5.5",
-    "express": "^4.7.1",
-    "method-override": "^2.1.2",
-    "mongoose": "~3.6.11",
-    "socket.io": "^1.3.7"
+   
+    "ejs": "^2.5.6",
+    "express": "~3.3.4",
+    "express-session": "^1.15.2",   
+    "mongodb": "~1.3.19",
+    "mongoose": "~3.8.1",   
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^4.0.0",
+    "socket.io": "^1.7.3",
+    "socket.io-express-session": "^0.1.3",
+    "striptags": "^3.0.1"
   }
 }

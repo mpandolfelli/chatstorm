@@ -1,157 +1,158 @@
-var express = require("express");
-var app = express(),
-    bodyParser      = require("body-parser"),
-    methodOverride  = require("method-override"),
-    mongoose        = require('mongoose');
-var ejs = require('ejs');
+var path = require('path');
+var express = require('express');
+var http = require('http');
+var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var app = express();
 var server = app.listen(3000);
 var io = require('socket.io')(server);
 
+// main config
 
-var expressSession = require('express-session');
-var cookieParser = require('cookie-parser');
-app.use(cookieParser());
-app.use(expressSession({
-        secret: 'apalapapa',
-        name: 'hash',
-        proxy: true,
-        resave: true,
-        saveUninitialized: true
-    }));
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.set('view options', { layout: false });
+app.use(express.logger());
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(express.cookieParser('your secret here'));
+app.use(express.session());
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
 
+app.configure('development', function(){
+    app.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+});
 
+app.configure('production', function(){
+    app.use(express.errorHandler());
+});
+
+// passport config
+var Account = require('./models/account');
+passport.use(new LocalStrategy(Account.authenticate()));
+passport.serializeUser(Account.serializeUser());
+passport.deserializeUser(Account.deserializeUser());
+
+// mongoose
+mongoose.connect('mongodb://localhost/chat');
+
+// routes
+require('./routes')(app);
 
 
 var users_connected = [];
+var room = '8a Room';
 
 
-// Connection to DB
-mongoose.connect('mongodb://localhost/users', function(err, res) {
-  if(err) throw err;
-  console.log('Connected to Database');
-});
+//**************************************
+// Protect XSS 
+//**************************************
+function stripTags(string){
+  var newstring = string.replace(/(<([^>]+)>)/ig,"");
+  return newstring;
+}
 
-app.set('views', __dirname + '/public/views');
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(express.static('public/js'));
-app.use(express.static('public/images'));
-app.use("/public", express.static((__dirname, 'public')));
-// Middlewares
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(methodOverride());
 
-// Import Models and controllers
-var models     = require('./models/user')(app, mongoose);
-var UserCtrl = require('./controllers/users');
+//**************************************
+// String replacement
+//**************************************
+var find = [":caca:", ":caquita:", ":chori:", ":chorizo:"];
+var replace = ['<img src="images/caca.png" width="20"/>', '<img src="images/caca.png" width="20"/>', '<img src="images/chori.png" width="40"/>', '<img src="images/chori.png" width="40"/>'];
 
-// Example Route
 
-var router = express.Router();
-router.get('/', function(req, res) {
- 
- 
-  if(req.session.username){
-    
-    /*if(users_connected.indexOf(req.session.username) == -1){
-      
-      users_connected.push(req.session.username);
-      console.log(users_connected);
-    }*/
-
-    res.render('index', { user: req.user });
-  }else{
-    
-    res.render('welcome');
+String.prototype.replaceWords = function(find, replace) {
+  var replaceString = this;
+  var regex; 
+  for (var i = 0; i < find.length; i++) {
+    regex = new RegExp(find[i], "g");
+    replaceString = replaceString.replace(regex, replace[i]);
   }
-  
-});
+  return replaceString;
 
+}
 
-router.get('/register', function(req, res) {
-  //res.send("Hello world!");
-  res.render('register');
-});
+// TO DO: Implementar los colores al momento del login para que no sean siempre los mismos
+var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10'];
+var color =  colors[Math.floor(Math.random()*colors.length)];
 
-router.get('/login', function(req, res) {
-  //res.send("Hello world!");
-  res.render('login');
-});
-
-
-app.use(router);
-
-
-
-// API routes
-var users = express.Router();
-
-users.route('/users')
-  .get(UserCtrl.findAllUsers)
-  .post(UserCtrl.addUser);
-
-
-users.route('/users/:username/:userpass')
-  .get(UserCtrl.findOne)
-  .put(UserCtrl.updateUser)
-  .delete(UserCtrl.deleteUser);
-
-app.use('/api', users);
-
-
-// Start server
-
-var messages = {};
-
-
+//**************************************
+// Soquetes
+//**************************************
 io.on('connection', function (socket) {
-//  var room = new Room('8a', 1, socket.id);
-  
-
-
-  socket.emit('users_to_me', {users: users_connected});
-  socket.broadcast.emit('users_to', {users: users_connected});
   
   socket.on('comment', function (data) {
-    //messages[data.username].count = 0;
-    
+
+        
     if(data.comment != '' && data.username != ''){
-      socket.emit('comment_to_me', {comment: data.comment, username: data.username});
-      socket.broadcast.emit('comment_to', {comment: data.comment, username: data.username});
+      
+      var comment = stripTags(data.comment); 
+
+      var newcomment = comment.replaceWords(find, replace);
+      
+      if(newcomment == '@banana'){
+         socket.emit('banana', 'banana');
+         socket.broadcast.emit('banana', 'banana');
+      }
+      if(newcomment == '@delfin'){
+         socket.emit('banana', 'delfin');
+         socket.broadcast.emit('banana', 'delfin');
+      }
+
+
+      socket.emit('comment_to_me', {comment: newcomment, username: data.username});
+      socket.broadcast.emit('comment_to', {comment: newcomment, username: data.username});
     }
      
   });
 
-  socket.on('user_login', function(data){
+  socket.on('gif', function(data){
+    io.in(room).emit('gif', {gif: data.gif, username: data.username});
+  });
 
-    if(users_connected[data.username]){
-      //socket.emit("userInUse");
-      return;
-    }else{
-      console.log('sisi que si');
-      socket.username = data.username;
-      users_connected[data.username] = socket.username;
-      socket.emit('users_to_me', {users: users_connected});
-      socket.broadcast.emit('users_to', {users: users_connected});
-    }
+  socket.on('join_room', function(data){
+    socket.join(room);
+    var user_connected = {};
+  
+    user_connected.username = data.user;
+    user_connected.id = socket.id;
 
+    users_connected.push(user_connected);
+
+    
+    socket.emit('color', color);
+    io.in(room).emit('users_to_me', {users: users_connected});
+    socket.emit('room_joined');
+    //socket.broadcast.emit('users_to', {users: users_connected});
+  });
+
+  socket.on('is_writting', function(data){
+      socket.broadcast.emit('is_writting', {username: data.username});
   });
 
   socket.on('disconnect', function () {
-    socket.broadcast.emit('users_to', {users: users_connected});
+   
+    removeUser(users_connected, 'id', socket.id);
+   
+    socket.to(room).emit('users_to', {users: users_connected});
   });
 });
 
+function removeUser(arr, attr, value){
+    var i = arr.length;
+    while(i--){
+       if( arr[i] 
+           && arr[i].hasOwnProperty(attr) 
+           && (arguments.length > 2 && arr[i][attr] === value ) ){ 
 
-var Room = function(name, id, owner){
-  this.users = 0;
-  this.name = name;
-  this.owner = owner;
-  this.id = id;
+           arr.splice(i,1);
+
+       }
+    }
+    return arr;
 }
 
-Room.prototype.addUser = function(user_id){
-  this.users.push(user_id);
-  console.log('Usuario agregado :'+user_id+' en sala: '+this.name);
-};

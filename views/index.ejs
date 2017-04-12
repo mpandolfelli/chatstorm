@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>chatStorm</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+    <link href="css/circle.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  </head>
+  <body>
+    <% if (!user) { %>
+    <!-- View: login / register -->
+		<div class="container-fluid">
+		    <div class="row">
+		      <div class="col-md-12 text-center title"><h2> ***--- ChatStorm ---***</h2></div>
+		    </div>
+
+		    <div class="row">
+		       <div class="col-md-12">
+			        <div class="login">
+			         	<h4>Bienvenido a chatStorm</h4>
+			            <a href="/login" class="btn">Login</a>
+						<a href="/register" class="btn">Register</a>
+		            </div>
+		        </div>    
+		    </div>
+		      
+		</div>
+		<script src="js/bootstrap.min.js"></script> 
+		<!-- / View: login / register -->
+
+	<% }else{ %>
+		<!-- View: Welcome / app -->
+    <div class="welcome">
+      <div class="hide-loading">
+      <div class="row app" style="padding:160px 0 40px 0;">
+          <div class="col-md-12 title-app text-center"><h2> ***--- ChatStorm ---***</h2></div>
+        </div>
+      <div class="row">
+        <div class="col-md-12 text-center" >
+          Hola <span id="username"><%= user.username %></span> 
+          <br />
+          <br />
+          <a href="javascript:void(0);" class="btn btn-default join-room">Entrar al chat</a>
+          <br />
+          <br />
+          <br />
+          <br />
+          <p>Chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios.</p>
+        </div>
+     
+    </div>
+    </div>
+    <svg width='200px' height='200px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-circle"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g><circle cx="50" cy="50" r="105" fill="#24292e"><animate attributeName="r" from="105" to="75" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="90" fill="#1deee5"><animate attributeName="r" from="90" to="60" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="75" fill="#24292e"><animate attributeName="r" from="75" to="45" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="60" fill="#1deee5"><animate attributeName="r" from="60" to="30" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="45" fill="#24292e"><animate attributeName="r" from="45" to="15" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="30" fill="#1deee5"><animate attributeName="r" from="30" to="0" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="15" fill="#24292e"><animate attributeName="r" from="15" to="0" repeatCount="indefinite" dur="1s"></animate></circle></g></svg>
+    </div>
+
+    <!-- Chat -->
+		<div class="container-fluid app chatstorm hide" >
+      <nav class="navbar navbar-default">
+          <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand title-app" href="#"><h2>ChatStorm</h2></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              
+              <ul class="nav navbar-nav navbar-right">
+               
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><stong><span class="glyphicon glyphicon-user"></span> <%= user.username %></stong> <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    <li> <a href="/logout">logout</a></li>
+                   
+                  </ul>
+                </li>
+              </ul>
+            </div><!-- /.navbar-collapse -->
+          </div><!-- /.container-fluid -->
+        </nav>
+		    
+
+
+      
+
+		     <div class="row " style="margin:0;">
+          <!-- Chat messages -->
+		       <div class="col-md-8 col-sm-9 chat-messages">
+              <marquee> ***--- 8a chat room ---***</marquee>
+              <div class="row">
+                <div class="col-md-10 chat-messages">
+                  <div class="chats">
+
+                
+
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="users_connected">
+                    <h5>En este chat</h5>
+                    <div id="users"></div>
+                  </div>
+                </div>
+              </div>
+		          
+		       </div>
+          
+           <!-- User / chat info -->
+		       <div class="col-md-4 col-sm-3">
+		         
+		         
+		         
+		         <div class="alert alert-success" role="alert">
+                <div class="row">
+                  <div class="col-md-10 col-sm-9 col-xs-9"><input class="form-control" id="gif-text" type="text" /></div>
+                  <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="serach-gif">Buscar</a></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12"><div class="result"></div></div>
+                </div>
+             
+		         
+		       </div>
+           
+		     </div>
+
+		
+	    <div class="chat-box">
+        <div class="row">
+          <div class="col-md-11 col-sm-9 col-xs-9"><div  class="form-control" id="comment" contenteditable="true"></div></div>
+          <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="send-comment"><span class="glyphicon glyphicon-send"></span> Enviar</a></div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 writting"></div>
+        </div>
+        
+      </div>
+    </div>
+
+    <div class="banana"><img src="images/gif.gif" ></div>
+    <div class="delfin"><img src="images/delfin.gif" ></div>
+    <div class="gif"></div>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>    
+		
+	  <script src="js/socket.io.js"></script>
+
+    <script type="text/javascript">
+
+
+    //var socket = io('http://localhost:3000');
+    var socket = io('http://www.turkin.com.ar:3000/');
+    var yo = '<%= user.username %>';
+
+    var usersWritting = [];
+
+    Notification.requestPermission();
+
+    $(document).ready(function(){
+
+      $('.join-room').click(function(){
+        $('.hide-loading').fadeOut();
+        $('.uil-circle').fadeIn();
+        socket.emit('join_room', {user:  yo});
+      });
+
+       /* El chat */
+
+      $('#comment').keypress(function(e) {
+        socket.emit('is_writting', { username: yo });
+         if(e.which == 13) {
+          e.preventDefault();
+            document.getElementById('comment').textContent;
+             var comment = document.getElementById('comment').textContent;
+             if(comment != ''){
+               $('#comment').html('');
+               $('#comment').focus();
+               socket.emit('comment', { comment: comment, username: yo });
+             }
+
+         }
+      });
+
+      $('#gif-text').keypress(function(e) {
+       
+         if(e.which == 13) {
+          e.preventDefault();
+             var gif = $('#gif-text').val();
+             if(gif != ''){
+               searchGif(gif);
+             }
+         }
+      });
+
+
+      socket.on('is_writting', function(data){
+        if(usersWritting.indexOf(data.username) == -1){
+          usersWritting.push(data.username);
+          $('.writting').append('<div class="is_writting" id="'+data.username+'">'+data.username+' esta escribiendo...</div>');
+        }else{
+          setTimeout(function(){
+            $('#'+data.username).remove();
+            usersWritting.splice(data.username, 1);
+          }, 4000);
+          
+        }
+
+        
+       
+        
+      });
+
+      $('.chat-messages').height($(window).height() - 90 - 92 - 45);
+
+      $('#username').html(yo);
+      
+      $('#send-comment').click(function(){
+        var comment = document.getElementById('comment').textContent;
+        if(comment != ''){
+          $('#comment').html('');
+          $('#comment').focus();
+          socket.emit('comment', { comment: comment, username: yo });
+        }
+        
+      });
+    });
+    
+    socket.on('gif', function(data){
+      
+      $('.chats').append('<div class="chat yo" style="color:<%= user.color %>"><span class="username">'+data.username+'</span>: <img src="'+data.gif+'" width="350"></div>');
+      scrollTo = $('.chat').last();
+        container.scrollTop(
+           scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
+    });
+
+    socket.on('room_joined', function(data){
+      $('.uil-circle').fadeOut();
+      $('.welcome').hide();
+      $('.chatstorm').removeClass('hide');
+
+    });
+
+    socket.on('banana', function(data){
+      $('.'+data).fadeIn();
+      setTimeout(function(){
+         $('.'+data).fadeOut();
+      }, 4000);
+    });
+
+    socket.on('users_to_me', function (data) {
+
+      $('#users').html('');
+      if(data.users.length > 0){
+        for(var i = 0; i <= data.users.length - 1 ; i++ ){
+          $('#users').append('<div>'+data.users[i].username+'</div>');
+          
+
+        }
+    }
+    });
+
+
+    $('#serach-gif').click(function(){
+      var text = $('#gif-text').val();
+      searchGif(text);
+    });
+    
+    function searchGif(text){
+      $('.result').html('');
+      $.get( "http://api.giphy.com/v1/gifs/search?q="+text+"&api_key=dc6zaTOxFJmzC&limit=10", function( data ) {
+
+         $.each(data.data, function(i, item) {
+            $('.result').append('<div class="gif-container"><a href="javascript:void(0);" class="send-gif" data-gif="'+item.images.downsized_medium.url+'"><img src="'+item.images.downsized_medium.url+'" width="120" height="100"/></a></div>');
+            
+        });
+      });
+    }
+
+
+    $('.result').on('click', '.send-gif', function(){
+
+        var gif = $(this).data('gif');
+        socket.emit('gif', {gif: gif, username: yo });
+    });
+    
+
+    var container = $('.chats');
+    
+    
+    socket.on('comment_to_me', function (data) {
+     
+
+      $('.chats').append('<div class="chat yo" style="color:<%= user.color %>"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      scrollTo = $('.chat').last();
+        container.scrollTop(
+           scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
+    });
+
+    socket.on('comment_to', function (data) {
+      var title = "chatStorm";
+      var extra = {
+        icon: "images/menem.jpg",
+        body: 'Tenes un mensaje bebote.'
+      }
+      // Lanzamos la notificación
+      var notification = new Notification( title, extra);      
+      setTimeout(function(){
+            notification.close(); //closes the notification
+        },1000); 
+
+      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      scrollTo = $('.chat').last();
+        container.scrollTop(
+           scrollTo.offset().top - container.offset().top + container.scrollTop()
+        );
+    });
+
+
+  </script>
+		
+		
+	<% } %>
+
+
+   
+
+
+  </body>
+</html>
