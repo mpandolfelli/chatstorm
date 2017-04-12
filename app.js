@@ -39,7 +39,7 @@ passport.serializeUser(Account.serializeUser());
 passport.deserializeUser(Account.deserializeUser());
 
 // mongoose
-mongoose.connect('mongodb://localhost/chat');
+mongoose.connect('mongodb://34.210.2.158/chat');
 
 // routes
 require('./routes')(app);
