@@ -5,12 +5,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(80);
 var io = require('socket.io')(server);
 
 // main config
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 80);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('view options', { layout: false });
