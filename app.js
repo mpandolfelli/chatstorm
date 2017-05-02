@@ -5,12 +5,12 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var app = express();
-var server = app.listen(3000);
+var server = app.listen(3002);
 var io = require('socket.io')(server);
 
 // main config
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 3002);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.set('view options', { layout: false });
@@ -50,7 +50,7 @@ var room = '8a Room';
 
 
 //**************************************
-// Protect XSS 
+// XSS 
 //**************************************
 function stripTags(string){
   var newstring = string.replace(/(<([^>]+)>)/ig,"");
@@ -59,7 +59,7 @@ function stripTags(string){
 
 
 //**************************************
-// String replacement
+// Reemplazos
 //**************************************
 var find = [":caca:", ":caquita:", ":chori:", ":chorizo:"];
 var replace = ['<img src="images/caca.png" width="20"/>', '<img src="images/caca.png" width="20"/>', '<img src="images/chori.png" width="40"/>', '<img src="images/chori.png" width="40"/>'];

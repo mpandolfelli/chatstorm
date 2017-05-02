@@ -1,14 +1,14 @@
 {
   "name": "chatstorm",
   "version": "0.0.1",
-  "description": "chatstorm es una aplicación anónima que no guarda ni recoleta información de sus usuarios",
+  "description": "chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios",
   "main": "app.js",
   "scripts": {
     "start": "node app.js "
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mjhea0/node-bootstrap3-template.git"
+    "url": "git@github.com:mpandolfelli/chatstorm.git"
   },
   "keywords": [
     "nodejs",

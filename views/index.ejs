@@ -44,32 +44,7 @@
 
 	<% }else{ %>
 		<!-- View: Welcome / app -->
-    <div class="welcome">
-      <div class="hide-loading">
-      <div class="row app" style="padding:160px 0 40px 0;">
-          <div class="col-md-12 title-app text-center"><h2> ***--- ChatStorm ---***</h2></div>
-        </div>
-      <div class="row">
-        <div class="col-md-12 text-center" >
-          Hola <span id="username"><%= user.username %></span> 
-          <br />
-          <br />
-          <a href="javascript:void(0);" class="btn btn-default join-room">Entrar al chat</a>
-          <br />
-          <br />
-          <br />
-          <br />
-          <p>Chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios.</p>
-        </div>
-     
-    </div>
-    </div>
-    <svg width='200px' height='200px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-circle"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g><circle cx="50" cy="50" r="105" fill="#24292e"><animate attributeName="r" from="105" to="75" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="90" fill="#1deee5"><animate attributeName="r" from="90" to="60" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="75" fill="#24292e"><animate attributeName="r" from="75" to="45" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="60" fill="#1deee5"><animate attributeName="r" from="60" to="30" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="45" fill="#24292e"><animate attributeName="r" from="45" to="15" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="30" fill="#1deee5"><animate attributeName="r" from="30" to="0" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="15" fill="#24292e"><animate attributeName="r" from="15" to="0" repeatCount="indefinite" dur="1s"></animate></circle></g></svg>
-    </div>
-
-    <!-- Chat -->
-		<div class="container-fluid app chatstorm hide" >
-      <nav class="navbar navbar-default">
+     <nav class="navbar navbar-default">
           <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -98,6 +73,96 @@
             </div><!-- /.navbar-collapse -->
           </div><!-- /.container-fluid -->
         </nav>
+    <div class="welcome">
+      <div class="hide-loading">
+      
+      <div class="row">
+        <div class="col-md-3 text-center" >
+          Hola <span id="username"><%= user.username %></span> 
+          <br />
+          <br />
+          <a href="javascript:void(0);" class="btn btn-default join-room">Entrar al chat</a>
+         
+          <br />
+
+          <div class="history">
+            <div class="history-maker">
+              <div class="form-group ">
+                <label for="history">Título</label>
+                <input type="password" class="form-control" id="history">
+              </div>
+              <div class="form-group ">
+                <label for="history">Escribir historia</label>
+                <textarea type="password" class="form-control" id="history" rows="5"></textarea>
+
+              </div>
+              <div class="form-group">
+                 <a href="javascript:void(0);" class="btn btn-default join-room">Escribir historia</a>
+              </div>
+            </div>
+          </div>
+          
+          
+          <br />
+          <br />
+          <p>Chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios.</p>
+        </div>
+        <div class="col-md-9">
+          <div class="news-container" role="alert">
+                <h5>Historias</h5>
+                <div id="news">
+                  <div class="row news">
+                  
+                    <div class="col-md-12">
+                      <h4>Un zero day permite instalar malware desde Microsoft Word, aunque será corregido esta semana</h4>
+                      <p>Según han podido descubrir los investigadores de la firma McAffee, hay un nuevo bug zero-day de Microsoft Office que, al contrario que otros más conocidos e históricos que tienen que ver con macros, se aprovecha de un documento RTF con extension .doc.</p>
+
+                      <p>Según explican los propios investigadores, gracias a este bug se puede instalar malware desde Microsoft Word. Para ello, una vez abierto el archivo malicioso el exploit se conecta a un servidor remoto, descarga un archivo que contiene código de aplicación HTML y que se guarda en el PC como un archivo .hta, que es ejecutable.</p>
+
+                      <p>Precisamente por este motivo, el atacante puede conseguir ejecutar cualquier código en la máquina infectada. Según McAfee, se trata de un bug lógico que permite a los crackers sortear cualquier mitigación basada en la memoria que Microsoft haya desarrollado.</p>
+
+                      <p>Este mismo bug también fue avistado por los investigadores de FireEye, que según dijeron estaban coordinando una solución al zero day con Microsoft. En lo que coinciden los dos informes es en la causa del bug. Al parecer, tiene que ver con la función de Windows Object Linking and Embedding (OLE), que permite enlazar e insertar contenido de un documento a otro.</p> 
+                    </div>
+                  </div> 
+                  <div class="row news">
+                  
+                    <div class="col-md-12">
+                      <h4>Un zero day permite instalar malware desde Microsoft Word, aunque será corregido esta semana</h4>
+                      <p>Según han podido descubrir los investigadores de la firma McAffee, hay un nuevo bug zero-day de Microsoft Office que, al contrario que otros más conocidos e históricos que tienen que ver con macros, se aprovecha de un documento RTF con extension .doc.</p>
+
+                      <p>Según explican los propios investigadores, gracias a este bug se puede instalar malware desde Microsoft Word. Para ello, una vez abierto el archivo malicioso el exploit se conecta a un servidor remoto, descarga un archivo que contiene código de aplicación HTML y que se guarda en el PC como un archivo .hta, que es ejecutable.</p>
+
+                      <p>Precisamente por este motivo, el atacante puede conseguir ejecutar cualquier código en la máquina infectada. Según McAfee, se trata de un bug lógico que permite a los crackers sortear cualquier mitigación basada en la memoria que Microsoft haya desarrollado.</p>
+
+                      <p>Este mismo bug también fue avistado por los investigadores de FireEye, que según dijeron estaban coordinando una solución al zero day con Microsoft. En lo que coinciden los dos informes es en la causa del bug. Al parecer, tiene que ver con la función de Windows Object Linking and Embedding (OLE), que permite enlazar e insertar contenido de un documento a otro.</p> 
+                    </div>
+                  </div> 
+                  <div class="row news">
+                  
+                    <div class="col-md-12">
+                      <h4>El arte y las técnicas de la propaganda y contra-propaganda moderna</h4>
+                      <p>Según han podido descubrir los investigadores de la firma McAffee, hay un nuevo bug zero-day de Microsoft Office que, al contrario que otros más conocidos e históricos que tienen que ver con macros, se aprovecha de un documento RTF con extension .doc.</p>
+
+                      <p>Según explican los propios investigadores, gracias a este bug se puede instalar malware desde Microsoft Word. Para ello, una vez abierto el archivo malicioso el exploit se conecta a un servidor remoto, descarga un archivo que contiene código de aplicación HTML y que se guarda en el PC como un archivo .hta, que es ejecutable.</p>
+
+                      <p>Precisamente por este motivo, el atacante puede conseguir ejecutar cualquier código en la máquina infectada. Según McAfee, se trata de un bug lógico que permite a los crackers sortear cualquier mitigación basada en la memoria que Microsoft haya desarrollado.</p>
+
+                      <p>Este mismo bug también fue avistado por los investigadores de FireEye, que según dijeron estaban coordinando una solución al zero day con Microsoft. En lo que coinciden los dos informes es en la causa del bug. Al parecer, tiene que ver con la función de Windows Object Linking and Embedding (OLE), que permite enlazar e insertar contenido de un documento a otro.</p> 
+                    </div>
+                  </div> 
+                </div>            
+             
+             </div>
+        </div>
+     
+      </div>
+    </div>
+    <svg width='200px' height='200px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-circle"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g><circle cx="50" cy="50" r="105" fill="#24292e"><animate attributeName="r" from="105" to="75" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="90" fill="#1deee5"><animate attributeName="r" from="90" to="60" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="75" fill="#24292e"><animate attributeName="r" from="75" to="45" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="60" fill="#1deee5"><animate attributeName="r" from="60" to="30" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="45" fill="#24292e"><animate attributeName="r" from="45" to="15" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="30" fill="#1deee5"><animate attributeName="r" from="30" to="0" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="15" fill="#24292e"><animate attributeName="r" from="15" to="0" repeatCount="indefinite" dur="1s"></animate></circle></g></svg>
+    </div>
+
+    <!-- Chat -->
+		<div class="container-fluid app chatstorm hide" >
+      
 		    
 
 
@@ -122,6 +187,17 @@
                   </div>
                 </div>
               </div>
+              <div class="result-container"><div class="result"></div></div>
+              <div class="chat-box">
+    		        <div class="row">
+    		          <div class="col-md-10 col-sm-9 col-xs-9"><div  class="form-control" id="comment" contenteditable="true"></div></div>
+                  <div class="col-md-1"><a href="javascript:void(0)" id="serach-gif" class="btn">gif</a></div>
+    		          <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="send-comment"><span class="glyphicon glyphicon-send"></span> Enviar</a></div>
+    		        </div>
+    		        <div class="row">
+    		          <div class="col-md-12 writting"></div>
+    		        </div>   
+    		      </div>
 		          
 		       </div>
           
@@ -130,32 +206,44 @@
 		         
 		         
 		         
-		         <div class="alert alert-success" role="alert">
-                <div class="row">
-                  <div class="col-md-10 col-sm-9 col-xs-9"><input class="form-control" id="gif-text" type="text" /></div>
-                  <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="serach-gif">Buscar</a></div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12"><div class="result"></div></div>
-                </div>
-             
+		         <div class="alert alert-success news-container" role="alert">
+                <h5>Historias</h5>
+                <div id="news">
+                  <div class="row news">
+                  
+                    <div class="col-md-12">
+                      <h4>Un zero day permite instalar malware desde Microsoft Word, aunque será corregido esta semana</h4>
+                      <p>Según han podido descubrir los investigadores de la firma McAffee, hay un nuevo bug zero-day de Microsoft Office que, al contrario que otros más conocidos e históricos que tienen que ver con macros, se aprovecha de un documento RTF con extension .doc.</p>
+
+                      <p>Según explican los propios investigadores, gracias a este bug se puede instalar malware desde Microsoft Word. Para ello, una vez abierto el archivo malicioso el exploit se conecta a un servidor remoto, descarga un archivo que contiene código de aplicación HTML y que se guarda en el PC como un archivo .hta, que es ejecutable.</p>
+
+                      <p>Precisamente por este motivo, el atacante puede conseguir ejecutar cualquier código en la máquina infectada. Según McAfee, se trata de un bug lógico que permite a los crackers sortear cualquier mitigación basada en la memoria que Microsoft haya desarrollado.</p>
+
+                      <p>Este mismo bug también fue avistado por los investigadores de FireEye, que según dijeron estaban coordinando una solución al zero day con Microsoft. En lo que coinciden los dos informes es en la causa del bug. Al parecer, tiene que ver con la función de Windows Object Linking and Embedding (OLE), que permite enlazar e insertar contenido de un documento a otro.</p> 
+                    </div>
+                  </div> 
+                  <div class="row news">
+                  
+                    <div class="col-md-12">
+                      <h4>El arte y las técnicas de la propaganda y contra-propaganda moderna</h4>
+                      <p>Según han podido descubrir los investigadores de la firma McAffee, hay un nuevo bug zero-day de Microsoft Office que, al contrario que otros más conocidos e históricos que tienen que ver con macros, se aprovecha de un documento RTF con extension .doc.</p>
+
+                      <p>Según explican los propios investigadores, gracias a este bug se puede instalar malware desde Microsoft Word. Para ello, una vez abierto el archivo malicioso el exploit se conecta a un servidor remoto, descarga un archivo que contiene código de aplicación HTML y que se guarda en el PC como un archivo .hta, que es ejecutable.</p>
+
+                      <p>Precisamente por este motivo, el atacante puede conseguir ejecutar cualquier código en la máquina infectada. Según McAfee, se trata de un bug lógico que permite a los crackers sortear cualquier mitigación basada en la memoria que Microsoft haya desarrollado.</p>
+
+                      <p>Este mismo bug también fue avistado por los investigadores de FireEye, que según dijeron estaban coordinando una solución al zero day con Microsoft. En lo que coinciden los dos informes es en la causa del bug. Al parecer, tiene que ver con la función de Windows Object Linking and Embedding (OLE), que permite enlazar e insertar contenido de un documento a otro.</p> 
+                    </div>
+                  </div> 
+                </div>            
 		         
-		       </div>
+		         </div>
            
 		     </div>
 
 		
-	    <div class="chat-box">
-        <div class="row">
-          <div class="col-md-11 col-sm-9 col-xs-9"><div  class="form-control" id="comment" contenteditable="true"></div></div>
-          <div class="col-md-1 col-sm-3 col-xs-3"><a href="javascript:void(0)" class="btn" id="send-comment"><span class="glyphicon glyphicon-send"></span> Enviar</a></div>
-        </div>
-        <div class="row">
-          <div class="col-md-12 writting"></div>
-        </div>
-        
-      </div>
-    </div>
+	
+    		</div>
 
     <div class="banana"><img src="images/gif.gif" ></div>
     <div class="delfin"><img src="images/delfin.gif" ></div>
@@ -168,8 +256,8 @@
     <script type="text/javascript">
 
 
-    //var socket = io('http://localhost:3000');
-    var socket = io('http://34.210.2.158:3000/');
+    var socket = io('http://localhost:3000');
+    //var socket = io('http://www.turkin.com.ar:3000/');
     var yo = '<%= user.username %>';
 
     var usersWritting = [];
@@ -201,17 +289,17 @@
          }
       });
 
-      $('#gif-text').keypress(function(e) {
+     /* $('#gif-text').keypress(function(e) {
        
          if(e.which == 13) {
           e.preventDefault();
-             var gif = $('#gif-text').val();
+            var gif = document.getElementById('comment').textContent;
              if(gif != ''){
                searchGif(gif);
              }
          }
       });
-
+    */
 
       socket.on('is_writting', function(data){
         if(usersWritting.indexOf(data.username) == -1){
@@ -224,13 +312,11 @@
           }, 4000);
           
         }
-
-        
        
-        
       });
 
       $('.chat-messages').height($(window).height() - 90 - 92 - 45);
+      $('#news').height($(window).height() - 150 );
 
       $('#username').html(yo);
       
@@ -282,15 +368,19 @@
 
 
     $('#serach-gif').click(function(){
-      var text = $('#gif-text').val();
-      searchGif(text);
+     var gif = document.getElementById('comment').textContent;
+     if(gif != ''){
+      searchGif(gif);
+     }
+      
     });
     
     function searchGif(text){
       $('.result').html('');
-      $.get( "http://api.giphy.com/v1/gifs/search?q="+text+"&api_key=dc6zaTOxFJmzC&limit=10", function( data ) {
-
+      $.get( "http://api.giphy.com/v1/gifs/search?q="+text+"&api_key=dc6zaTOxFJmzC&limit=18", function( data ) {
+        $('.result-container').slideToggle();
          $.each(data.data, function(i, item) {
+
             $('.result').append('<div class="gif-container"><a href="javascript:void(0);" class="send-gif" data-gif="'+item.images.downsized_medium.url+'"><img src="'+item.images.downsized_medium.url+'" width="120" height="100"/></a></div>');
             
         });
@@ -302,6 +392,7 @@
 
         var gif = $(this).data('gif');
         socket.emit('gif', {gif: gif, username: yo });
+        $('.result-container').slideToggle();
     });
     
 

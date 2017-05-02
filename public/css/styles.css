@@ -6,15 +6,15 @@ body{
 }
 
 .chat-box{
-	position: fixed;
-	bottom: 0;
-	left: 0;
-	padding: 15px;
-	width: 100%;
-	z-index: 2;
-	background-color: #24292e;
-	border-top: 1px solid #1deee5;
-	height: 92px;
+	
+    /* bottom: 0; */
+    /* left: 0; */
+    padding: 15px 23px 15px 0;
+    /* width: 100%; */
+    z-index: 2;
+    background-color: #24292e;
+    border-top: 1px solid #1deee5;
+    height: 92px;
 }
 
 .chat-messages{
@@ -35,7 +35,19 @@ body{
 	background-color: #24292e;
 	border-radius: 0;
 }
-
+.beta{
+	background-color: #E53935;
+	color:#fff;
+	padding: 4px 8px;
+	border-radius: 4px;
+	font-size: 20px;
+	float: left;
+	margin-top: -40px;
+	margin-bottom:60px;
+	margin-left: 48%;
+	transform: rotate(-7deg);
+	text-align: center;
+}
 
 
 .chat-messages{
@@ -263,9 +275,61 @@ background-color: #24292e;
 	margin-right: 10px;
 	margin-bottom: 10px;	
 }
-.result{
+.result-container{
 	float: left;
-	margin-top: 10px;
 	width: 100%;
+	position: relative;
+    margin-top: -232px;
+    background: #24292e;
+    display: none;
+    border:1px solid #1deee5;
+}
 
+.result{
+	padding: 15px;
+}
+
+
+/*News*/
+.news{
+	 margin-bottom: 10px;
+	 padding:15px 0 40px 0;
+	 background-color: #dedede;
+}
+
+#news{
+	overflow-y: scroll;
+	padding: 0;
+	overflow-x:hidden ;
+	padding: 0 15px;
+}
+.news-container{
+	padding: 0;
+	color:#222;
+	font-family: Arial;
+}
+
+.news-container h5{
+	background-color: #e74c3c;
+	text-align: center;
+	font-family: 'Pacifico', cursive;
+	margin:0;
+	font-size: 24px;
+	color:#fff;
+	padding: 15px 0
+}
+
+.history{
+	padding:20px 15px;
+}
+
+.history-maker{
+	border-top:1px solid #1deee5;
+	border-bottom:1px solid #1deee5;
+	margin-top:20px;
+	padding:20px 15px; 
+}
+
+.welcome{
+	background-color: #333
 }
