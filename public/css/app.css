@@ -85,6 +85,7 @@ body{
 	border-radius: 0;
 	background-color: #363636;
 	border:0;
+	color:#ddd;
 }
 
 .chatstorm h4{
@@ -145,6 +146,7 @@ body{
 }
 .btn{
 	border-radius: 0;
+	text-transform: capitalize;
 	background-color: #0091EA;
 	color:#fff;
 	border:1px solid #fff;
@@ -154,6 +156,7 @@ body{
 	border-radius: 0;
 	background-color: #fff;
 	color:#0091EA;
+	text-transform: capitalize;
 	border:1px solid #0091EA;
 	transition:all ease .5s;
 }
@@ -162,7 +165,7 @@ body{
 
 
 .yo{
-	color: #9C27B0;
+	color: #40C4FF;
 }
 
 
