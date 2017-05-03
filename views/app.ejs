@@ -20,8 +20,31 @@
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   </head>
-  <body class="overflow">
-   
+  
+    <% if (!user) { %>
+    <body class="overflow home">
+      <!-- View: login / register -->
+      <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12 text-center title"><h2> ***--- ChatStorm ---***</h2></div>
+          </div>
+
+          <div class="row">
+             <div class="col-md-12 text-center">
+                
+                   <h4>Bienvenido a chatStorm</h4>
+                    <a href="/login" class="btn">Login</a>
+                    <a href="/register" class="btn">Register</a>
+                  
+              </div>    
+          </div>
+            
+      </div>
+      <script src="js/bootstrap.min.js"></script> 
+     <!-- / View: login / register -->
+
+     <% }else{ %>
+    <body class="overflow">
 		<!-- View: Welcome / app -->
      <nav class="navbar navbar-default navbar-fixed-top">
           <div class="container-fluid">
@@ -289,12 +312,16 @@
         function searchGif(text){
           $('.result').html('');
           $.get( "http://api.giphy.com/v1/gifs/search?q="+text+"&api_key=dc6zaTOxFJmzC&limit=18", function( data ) {
-            $('.result-container').slideToggle();
-             $.each(data.data, function(i, item) {
+            
+              if(data.data.length > 0){
+                $('.result-container').slideToggle();
+                $.each(data.data, function(i, item) {
 
-                $('.result').append('<div class="gif-container"><a href="javascript:void(0);" class="send-gif" data-gif="'+item.images.downsized_medium.url+'"><img src="'+item.images.downsized_medium.url+'" width="120" height="100"/></a></div>');
+                  $('.result').append('<div class="gif-container"><a href="javascript:void(0);" class="send-gif" data-gif="'+item.images.downsized_medium.url+'"><img src="'+item.images.downsized_medium.url+'" width="120" height="100"/></a></div>');
                 
-            });
+                });
+              }
+             
           });
         }
       
@@ -321,12 +348,12 @@
             });
         }
 
-         $('.result').on('click', '.send-gif', function(){
-
-        var gif = $(this).data('gif');
-        socket.emit('gif', {gif: gif, username: yo });
-        $('.result-container').slideToggle();
-    });
+        $('.result').on('click', '.send-gif', function(){
+          $('#comment').html('');
+          var gif = $(this).data('gif');
+          socket.emit('gif', {gif: gif, username: yo });
+          $('.result-container').slideToggle();
+        });
     
 
     var container = $('.chats');
@@ -362,7 +389,7 @@
 
       });
     </script>
-
+  <% } %>
 <script id="template-history" type="x-tmpl-mustache">
     <div class="app-history">
       <div class="media ">
