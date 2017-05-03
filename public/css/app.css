@@ -1,5 +1,5 @@
 body{
-	background-color: #dedede;
+	background-color: #000;
 	color: #fff;
 	
 
@@ -12,7 +12,7 @@ body{
   font-size:22px;
   margin:0;
   float: left;
-  color: #9C27B0;
+  color: #fff;
 
 }
 
@@ -20,17 +20,20 @@ body{
 
 }
 .navbar{
-	border-radius: 0
+	border-radius: 0;
+	background-color: #243245;
+	border: 0;
 }
 .app-box{
-	background-color: #eee;
+	background-color: #243245;
 	padding: 15px;
-	color:#555;
+	color:#fff;
 }
 
 .chat-box{
-	background-color: #555;
+	background-color: #222;
 	padding:15px 0;
+	color: #fff;
 }
 
 .app-history-box{
@@ -43,9 +46,10 @@ body{
 }
 
 .app-history{
-	background-color: #eee;
+	background-color: #363636;
 	padding: 15px;
 	margin-bottom: 15px;
+	color: #ccc
 }
 
 .app-history h4{
@@ -79,7 +83,8 @@ body{
 
 .form-control{
 	border-radius: 0;
-	background-color: #eee;
+	background-color: #363636;
+	border:0;
 }
 
 .chatstorm h4{
@@ -87,7 +92,7 @@ body{
   font-size:22px;
   margin:0;
   text-transform: capitalize;
-   color: #9C27B0;
+   color: #fff;
 }
 
 .home h2{
