@@ -45,7 +45,7 @@ mongoose.connect('mongodb://localhost/chat');
 // routes
 require('./routes')(app);
 
-
+var usedColors = [];
 var users_connected = [];
 var room = '8a Room';
 
@@ -160,10 +160,16 @@ function removeUser(arr, attr, value){
 
 
 function getColor(){
-    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10'];
+
+    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10', '#BA68C8', '#80CBC4', '#CDDC39', '#A1887F', '#00E676'];
     var color =  colors[Math.floor(Math.random()*colors.length)];
-    var usedColors = [];
-    return color;
+    if(usedColors.indexOf(color) != -1 ){
+      usedColors.push(color);
+      return color;
+    }else{
+       getColor();
+    }
+   
   }
 
 
