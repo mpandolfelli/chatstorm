@@ -396,9 +396,9 @@
 
         function safeForWork(value){
           if(value == 'true'){
-            $('.gif-enviado').hide();
+            $('body').addClass('sfw');
           }else if(value == 'false'){
-            $('.gif-enviado').show();
+            $('body').removeClass('sfw');
           }
         }
 
@@ -450,7 +450,7 @@
         
         <div class="media-body">
           <h4 class="media-heading">{{title}}</h4>
-         {{text}}
+         {{{text}}}
         </div>
         <div class="app-history-data">Publicado por <strong>{{username}}</strong> el {{date}}
         
@@ -460,18 +460,7 @@
 </script>
 
 <script id="template-history2" type="x-tmpl-mustache">
-    <div class="app-history">
-      <div class="media ">
-        
-        <div class="media-body">
-          <h4 class="media-heading">{{title}}</h4>
-         {{text}}
-        </div>
-        <div class="app-history-data">Publicado por <strong>{{username}}</strong> el {{date}}
-          <div class="pull-right app-history-stars">{{fires}}<a href=""><span class="glyphicon glyphicon-fire"></span></a> | {{likes}} <a href=""><span class="glyphicon glyphicon-star"></span></a></div>
-        </div>
-      </div>
-    </div>
+   
 </script>
 
 
