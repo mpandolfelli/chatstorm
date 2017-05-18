@@ -10,7 +10,7 @@
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/app.css" rel="stylesheet">
-    <link href="css/circle.css" rel="stylesheet">
+  
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,6 +19,13 @@
     <![endif]-->
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+    <style type="text/css">
+    .body_wishiwi{
+      background-color: #363636!important;
+    }
+</style>
   </head>
   
     <% if (!user) { %>
@@ -78,7 +85,7 @@
       
       <div class="container-fluid main-app">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 hidden-sm hidden-xs">
               <div class="app-history-box">
                 <form action="/app" method="post">
                 <div class="form-group">  
@@ -94,12 +101,12 @@
                     <a href="javascript:void(0);" class="btn btn-default send-history">enviar</a>
                   </div>
                 </div>
-                <div id="app-histories-container">
+                <div id="app-histories-container" class="custom-scrollbar">
                   
                  </div>
               </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 col-lg-6 col-sm-12">
               <div class="app-box" style="min-width: 100%;" >
                 <div class="hide-loading">
                   <div class="welcome text-center">
@@ -117,7 +124,7 @@
                   <h4> ***--- 8a chat room ---***</h4>
                   <div class="row">
                     <div class="col-md-10 col-sm-9 col-xs-8 chat-messages">
-                      <div class="chats">
+                      <div class="chats custom-scrollbar">
 
                     
 
@@ -167,10 +174,32 @@
 
     <script type="text/javascript">
 
-    //var socket = io('http://localhost:3000');
+    tinymce.init({
+        force_br_newlines : false,
+        force_p_newlines : false,
+        forced_root_block : '',
+        relative_urls: false,
+        menubar: false,
+        body_class: "body_wishiwi",
+
+      selector: 'textarea',
+      height: 100,
+      plugins: [
+              
+              "anchor",
+              "code",
+              "insertdatetime paste"
+          ],
+       
+        toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify| link",
+      imagetools_cors_hosts: ['www.tinymce.com', 'codepen.io']
+    });
+
+    //var socket = io('http://localhost:3002');
     var socket = io('http://34.210.2.158:3002/');
     var yo = '<%= user.username %>';
-
+    
+    console.log('<%= user %>');
     var usersWritting = [];
 
     Notification.requestPermission();
@@ -179,10 +208,11 @@
       $(document).ready(function(){
        getHistories();
         
+      
 
        $('.send-history').click(function(){
         var title = $('#title').val();
-        var text = $('#text').val();
+        var text = tinymce.get('text').getBody().innerHTML;
         
         if(title != '' && text != ''){
 
@@ -214,9 +244,16 @@
             document.getElementById('comment').textContent;
              var comment = document.getElementById('comment').textContent;
              if(comment != ''){
-               $('#comment').html('');
-               $('#comment').focus();
-               socket.emit('comment', { comment: comment, username: yo });
+                if(comment.substring(0, 5) == "#sfw:"){
+
+                  var value =  comment.substr(comment.indexOf(":") + 1);;
+                  safeForWork(value);
+                }else{
+                  $('#comment').html('');
+                  $('#comment').focus();
+                  socket.emit('comment', { comment: comment, username: yo });
+                }
+              
              }
 
          }
@@ -242,10 +279,12 @@
         if(width > 992){
           $('.chat-messages').height($(window).height() - 90 - 120);
           $('.app-box').height($(window).height() - 90  - 45);
-          $('#app-histories-container').height($(window).height() - 300 );
+          $('#app-histories-container').height($(window).height() - 400 );
          
         }else{
            $('body').removeClass('overflow');
+           $('.chat-messages').height($(window).height() - 90 - 120);
+          $('.app-box').height($(window).height() - 90  - 45);
         }
        
        
@@ -255,9 +294,15 @@
         $('#send-comment').click(function(){
           var comment = document.getElementById('comment').textContent;
           if(comment != ''){
-            $('#comment').html('');
-            $('#comment').focus();
-            socket.emit('comment', { comment: comment, username: yo });
+            if(comment.substring(0, 5) == "#sfw:"){
+                  console.log('si papa');
+                  var value =  comment.substr(comment.indexOf(":") + 1);;
+                  safeForWork(value);
+                }else{
+                  $('#comment').html('');
+                  $('#comment').focus();
+                  socket.emit('comment', { comment: comment, username: yo });
+                }
           }
           
         });
@@ -268,7 +313,7 @@
 
     socket.on('gif', function(data){
       
-      $('.chats').append('<div class="chat yo" style="color:<%= user.color %>"><span class="username">'+data.username+'</span>: <img src="'+data.gif+'" width="350"></div>');
+      $('.chats').append('<div class="chat gif-enviado" style="color:<%= user.color %>"><span class="username">'+data.username+'</span>: <img src="'+data.gif+'" width="350"></div>');
       scrollTo = $('.chat').last();
         container.scrollTop(
            scrollTo.offset().top - container.offset().top + container.scrollTop()
@@ -294,7 +339,7 @@
       $('#users').html('');
       if(data.users.length > 0){
         for(var i = 0; i <= data.users.length - 1 ; i++ ){
-          $('#users').append('<div>'+data.users[i].username+'</div>');
+          $('#users').append('<div style="color:'+data.users[i].color+'">'+data.users[i].username+'</div>');
           
 
         }
@@ -351,6 +396,14 @@
             });
         }
 
+        function safeForWork(value){
+          if(value == 'true'){
+            $('.gif-enviado').hide();
+          }else if(value == 'false'){
+            $('.gif-enviado').show();
+          }
+        }
+
         $('.result').on('click', '.send-gif', function(){
           $('#comment').html('');
           var gif = $(this).data('gif');
@@ -365,7 +418,7 @@
     socket.on('comment_to_me', function (data) {
      
 
-      $('.chats').append('<div class="chat yo" style="color:<%= user.color %>"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+': </span> <span class="message">' +data.comment+'</span></div><div class="time">'+data.time+'</div>');
       scrollTo = $('.chat').last();
         container.scrollTop(
            scrollTo.offset().top - container.offset().top + container.scrollTop()
@@ -384,7 +437,7 @@
             notification.close(); //closes the notification
         },1000); 
 
-      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+'</span>: <span class="message">'+data.comment+'</span></div>');
+      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+': </span> <span class="message">' +data.comment+'</span></div>'+data.time);
       scrollTo = $('.chat').last();
         container.scrollTop(
            scrollTo.offset().top - container.offset().top + container.scrollTop()

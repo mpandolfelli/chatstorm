@@ -5,11 +5,12 @@ var multer  = require('multer');
 var upload = multer({ dest: './public/uploads/' });
 
 
+
 module.exports = function (app) {
 
   app.get('/', function (req, res) {
     HistoryM.find({}, function(err, histories) {
-     
+    
       res.render('app', { user : req.user, histories: histories});
          
     });
@@ -24,9 +25,9 @@ module.exports = function (app) {
   app.get('/app',  function(req, res) {
 
      
-
       HistoryM.find({}, function(err, histories) {
-     
+
+
       res.render('app', { user : req.user, histories: histories});
          
       });
@@ -72,11 +73,13 @@ module.exports = function (app) {
 
   app.get('/login', function(req, res) {
       
+  
+    //  
       res.render('login', { user : req.user });
   });
 
   app.post('/login', passport.authenticate('local'), function(req, res) {
-     
+    
       res.redirect('/');
   });
 
@@ -98,5 +101,7 @@ module.exports = function (app) {
       
      
   });
+
+  
  
 };

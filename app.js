@@ -32,6 +32,7 @@ app.configure('production', function(){
     app.use(express.errorHandler());
 });
 
+
 // passport config
 var Account = require('./models/account');
 passport.use(new LocalStrategy(Account.authenticate()));
@@ -76,15 +77,16 @@ String.prototype.replaceWords = function(find, replace) {
 
 }
 
-// TO DO: Implementar los colores al momento del login para que no sean siempre los mismos
-var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10'];
-var color =  colors[Math.floor(Math.random()*colors.length)];
+
 
 //**************************************
 // Soquetes
 //**************************************
 io.on('connection', function (socket) {
-  
+  //socket.set('color', getColor());
+  var color = getColor();
+  socket.client.color = color;
+
   socket.on('comment', function (data) {
 
         
@@ -104,8 +106,8 @@ io.on('connection', function (socket) {
       }
 
 
-      socket.emit('comment_to_me', {comment: newcomment, username: data.username});
-      socket.broadcast.emit('comment_to', {comment: newcomment, username: data.username});
+      socket.emit('comment_to_me', {comment: newcomment, username: data.username, color: socket.client.color, time: getDate()});
+      socket.broadcast.emit('comment_to', {comment: newcomment, username: data.username, color: socket.client.color, time: getDate()});
     }
      
   });
@@ -120,11 +122,11 @@ io.on('connection', function (socket) {
   
     user_connected.username = data.user;
     user_connected.id = socket.id;
-
+    user_connected.color = socket.client.color;
     users_connected.push(user_connected);
 
     
-    socket.emit('color', color);
+   
     io.in(room).emit('users_to_me', {users: users_connected});
     socket.emit('room_joined');
     //socket.broadcast.emit('users_to', {users: users_connected});
@@ -156,3 +158,18 @@ function removeUser(arr, attr, value){
     return arr;
 }
 
+
+function getColor(){
+    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10'];
+    var color =  colors[Math.floor(Math.random()*colors.length)];
+    var usedColors = [];
+    return color;
+  }
+
+
+function getDate(){
+  var d = new Date(); // for now
+  var hour = d.getHours();
+  var minute = d.getMinutes(); 
+  return hour+': '+minute;
+}  

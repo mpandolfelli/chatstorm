@@ -45,6 +45,29 @@ body{
 	padding:0 15px 0 0;
 }
 
+.custom-scrollbar{
+	overflow-y: scroll;
+}
+.custom-scrollbar::-webkit-scrollbar
+{		
+	border-radius: 10px;
+	width: 12px;
+	background-color: #ccc;
+}
+.custom-scrollbar::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #ccc;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+
+}
+
 .app-history{
 	background-color: #363636;
 	padding: 15px;
@@ -77,7 +100,6 @@ body{
 
 .home{
 	background-color: #222
-
 }
 
 
@@ -161,7 +183,19 @@ body{
 	transition:all ease .5s;
 }
 
-
+.chat{
+	clear: both;
+}
+.username, .message{
+	float: left;
+}
+.message{
+	padding-left:4px;
+}
+.time{
+	float: right;
+	font-size:10px;
+}
 
 
 .yo{
@@ -267,3 +301,45 @@ body{
 }
 
 
+
+.mce-panel{
+	background-color: #363636!important;
+	color:#ddd!important;
+}
+
+.mce-menubar .mce-menubtn button span {
+    color: #ddd!important;
+}
+.mce-menubar .mce-menubtn button {
+    color: #ddd!important;
+}
+
+
+.mce-btn.mce-disabled button, .mce-btn.mce-disabled:hover button {
+    cursor: default;
+    opacity: 1!important;
+   background-color: #363636!important;
+	color:#ddd!important;
+  
+}
+
+.mce-container, .mce-container *, .mce-widget, .mce-widget *, .mce-reset{
+	color:#ddd!important;
+}
+
+.mce-btn {
+    border: none!important;
+    border-color: transparent transparent transparent transparent;
+    position: relative;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+    display: inline-block;
+    background-color: #363636!important;
+}
+
+div.mce-edit-area{
+	background: #363636!important;
+}
+
+.body_wishiwi{
+	background-color: #363636!important;
+}
