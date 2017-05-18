@@ -169,7 +169,7 @@ function getColor(){
 
 function getDate(){
   var d = new Date(); // for now
-  var hour = d.getHours();
+  var hour = d.getHours() - 3;
   var minute = d.getMinutes(); 
   return hour+': '+minute;
 }  

@@ -435,7 +435,7 @@
             notification.close(); //closes the notification
         },1000); 
 
-      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+': </span> <span class="message">' +data.comment+'</span></div>'+data.time);
+      $('.chats').append('<div class="chat" style="color:'+data.color+'"><span class="username">'+data.username+': </span> <span class="message">' +data.comment+'</span></div><div class="time">'+data.time+'</div>');
       scrollTo = $('.chat').last();
         container.scrollTop(
            scrollTo.offset().top - container.offset().top + container.scrollTop()
