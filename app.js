@@ -96,7 +96,7 @@ io.on('connection', function (socket) {
 
       var newcomment = comment.replaceWords(find, replace);
       
-      if(newcomment == '@banana'){
+      if(newcomment == '@bananaReload'){
          socket.emit('banana', 'banana');
          socket.broadcast.emit('banana', 'banana');
       }

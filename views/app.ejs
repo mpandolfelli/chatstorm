@@ -328,10 +328,8 @@
     });
 
     socket.on('banana', function(data){
-      $('.'+data).fadeIn();
-      setTimeout(function(){
-         $('.'+data).fadeOut();
-      }, 4000);
+      location.reload();
+     
     });
 
     socket.on('users_to_me', function (data) {
