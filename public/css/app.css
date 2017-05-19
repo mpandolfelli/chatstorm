@@ -343,3 +343,7 @@ div.mce-edit-area{
 .body_wishiwi{
 	background-color: #363636!important;
 }
+
+.sfw .gif-enviado{
+	display: none;
+}
