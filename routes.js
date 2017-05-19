@@ -25,11 +25,9 @@ module.exports = function (app) {
   app.get('/app',  function(req, res) {
 
      
-      HistoryM.find({}, function(err, histories) {
-
-
-      res.render('app', { user : req.user, histories: histories});
-         
+    
+       HistoryM.find({}).sort({date: 'desc'}).exec(function(err, histories){
+            res.render('app', { user : req.user, histories: histories});
       });
       
      
@@ -90,14 +88,19 @@ module.exports = function (app) {
 
 
   app.get('/api',  function(req, res) {
-      HistoryM.find({}, function(err, histories) {
+      HistoryM.find({}).sort({date: 'asc'}).exec(function(err, histories){
+           return res.json({
+            histories: histories
+              });
+      });
+     /* HistoryM.find({}, function(err, histories) {
        
         return res.json({
           histories: histories
             });
          
          
-      });
+      }).sort({ _id: -1 });*/
       
      
   });

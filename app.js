@@ -48,7 +48,7 @@ require('./routes')(app);
 
 var users_connected = [];
 var room = '8a Room';
-
+var colors = ['#ff0000', '#00ff00', '#008080', '#ffff00', '#800000', '#00ffff', '#ff00ff', '#00ffff', '#ff1000', '#c0c0c0', '#ff0010', '#00ff10', '#BA68C8', '#80CBC4', '#CDDC39', '#A1887F'];
 
 //**************************************
 // XSS 
@@ -115,6 +115,10 @@ io.on('connection', function (socket) {
   socket.on('gif', function(data){
     io.in(room).emit('gif', {gif: data.gif, username: data.username});
   });
+  
+  socket.on('newHistory', function(data){
+    socket.broadcast.emit('updateHistories');
+  });
 
   socket.on('join_room', function(data){
     socket.join(room);
@@ -144,6 +148,8 @@ io.on('connection', function (socket) {
   });
 });
 
+
+
 function removeUser(arr, attr, value){
     var i = arr.length;
     while(i--){
@@ -160,9 +166,12 @@ function removeUser(arr, attr, value){
 
 
 function getColor(){
-    var colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#ff00ff', '#00ffff', '#ff1000', '#ff0010', '#00ff10', '#BA68C8', '#80CBC4', '#CDDC39', '#A1887F'];
+   
     var color =  colors[Math.floor(Math.random()*colors.length)];
-    var usedColors = [];
+    var index = colors.indexOf(color);
+    if (index > -1) {
+        colors.splice(index, 1);
+    }
     return color;
   }
 
