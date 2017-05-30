@@ -4,6 +4,10 @@ var HistoryM = require('./models/history');
 var multer  = require('multer');
 var upload = multer({ dest: './public/uploads/' });
 
+var mongoose = require('mongoose');
+
+var connection = mongoose.createConnection('mongodb://localhost:chat');
+
 
 
 module.exports = function (app) {
@@ -18,6 +22,7 @@ module.exports = function (app) {
      
   });
 
+ 
   app.get('/register', function(req, res) {
       res.render('register', { });
   });
@@ -26,11 +31,20 @@ module.exports = function (app) {
 
      
     
-       HistoryM.find({}).sort({date: 'desc'}).exec(function(err, histories){
+      HistoryM.find({}).sort({date: 'desc'}).exec(function(err, histories){
             res.render('app', { user : req.user, histories: histories});
       });
       
      
+  });
+
+
+   app.get('/user/:username',  function(req, res) {
+
+      HistoryM.find({}).sort({date: 'desc'}).where('username').equals(req.params.username).exec(function(err, histories){
+            res.render('user', { user : req.user, histories: histories});
+      });
+         
   });
 
   app.post('/api', function(req, res) {
@@ -70,9 +84,6 @@ module.exports = function (app) {
   });
 
   app.get('/login', function(req, res) {
-      
-  
-    //  
       res.render('login', { user : req.user });
   });
 
@@ -88,23 +99,32 @@ module.exports = function (app) {
 
 
   app.get('/api',  function(req, res) {
-      HistoryM.find({}).sort({date: 'asc'}).exec(function(err, histories){
-           return res.json({
-            histories: histories
-              });
-      });
-     /* HistoryM.find({}, function(err, histories) {
-       
-        return res.json({
+    HistoryM.find({}).sort({date: 'desc'}).exec(function(err, histories){
+         return res.json({
           histories: histories
             });
+    });
+     
+  });
+
+  app.get('/getHistoriesByUser/:username',  function(req, res) {
+    HistoryM.find({}).sort({date: 'desc'}).where('username').equals(req.params.username).exec(function(err, histories){
+          return res.json({
+          histories: histories
+            });
+    });
+  });
+
+  
+  app.get('/', function (req, res) {
+    HistoryM.find({}, function(err, histories) {
+    
+      res.render('app', { user : req.user, histories: histories});
          
-         
-      }).sort({ _id: -1 });*/
+    });
       
      
   });
 
   
- 
 };

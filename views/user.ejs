@@ -8,8 +8,8 @@
     <title>chatStorm</title>
 
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/app.css" rel="stylesheet">
   
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -19,7 +19,6 @@
     <![endif]-->
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
     <style type="text/css">
     .body_wishiwi{
@@ -48,7 +47,7 @@
             
       </div>
       <div class="footer">Chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios.</div>
-      <script src="js/bootstrap.min.js"></script> 
+      <script src="../js/bootstrap.min.js"></script> 
      <!-- / View: login / register -->
 
      <% }else{ %>
@@ -64,7 +63,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
               </button>
-              <a class="navbar-brand title-app" href="#"><h2>ChatStorm</h2> <span class="beta">beta</span></a>
+              <a class="navbar-brand title-app" href="/app"><h2>ChatStorm</h2> <span class="beta">beta</span></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -84,11 +83,16 @@
           </div><!-- /.container-fluid -->
         </nav>
       
-      <div class="container-fluid main-app">
+      <div class="container main-app avatar">
         <div class="row">
-            <div class="col-md-6 hidden-sm hidden-xs">
+            <div class="col-md-3" id="avatar">
+              <img src="https://api.adorable.io/avatars/150/<%= user.username %>.png" class="img-circle">
+              <h4><%= user.username %></h4>
+            </div>
+            
+            <div class="col-md-9 hidden-sm hidden-xs">
               <div class="app-history-box">
-                <form action="/app" method="post">
+               <!-- <form action="/app" method="post">
                 <div class="form-group">  
                   <div class="form-group">
                    
@@ -102,76 +106,46 @@
                     <a href="javascript:void(0);" class="btn btn-default send-history">enviar</a>
                   </div>
                 </div>
+                </form> -->
+               
                 <div id="app-histories-container" class="custom-scrollbar">
                   
                  </div>
               </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-sm-12">
-              <div class="app-box" style="min-width: 100%;" >
-                <div class="hide-loading">
-                  <div class="welcome text-center">
-                    Hola <span id="username"><%= user.username %></span> 
-                    <br />
-                    <br />
-                    <a href="javascript:void(0);" class="btn btn-default join-room">Entrar al chat</a>
-                     <br />
-                      <br />
-                      <p>Chatstorm es una aplicación anónima que no guarda ni recolecta información de sus usuarios.</p>
-                    <svg width='200px' height='200px' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="uil-circle"><rect x="0" y="0" width="100" height="100" fill="none" class="bk"></rect><g><circle cx="50" cy="50" r="105" fill="#24292e"><animate attributeName="r" from="105" to="75" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="90" fill="#1deee5"><animate attributeName="r" from="90" to="60" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="75" fill="#24292e"><animate attributeName="r" from="75" to="45" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="60" fill="#1deee5"><animate attributeName="r" from="60" to="30" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="45" fill="#24292e"><animate attributeName="r" from="45" to="15" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="30" fill="#1deee5"><animate attributeName="r" from="30" to="0" repeatCount="indefinite" dur="1s"></animate></circle><circle cx="50" cy="50" r="15" fill="#24292e"><animate attributeName="r" from="15" to="0" repeatCount="indefinite" dur="1s"></animate></circle></g></svg>
-                  </div>
-                </div>
-                <div class="app chatstorm hide " >
-                  <h4> ***--- 8a chat room ---***</h4>
-                  <div class="row">
-                    <div class="col-md-10 col-sm-9 col-xs-8 chat-messages">
-                      <div class="chats custom-scrollbar">
-
-                    
-
-                      </div>
-                    </div>
-                    <div class="col-md-2 col-sm-3 col-xs-4">
-                      <div class="users_connected">
-                        <h5>En este chat</h5>
-                        <div id="users"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="result-container">
-                    <span class="glyphicon glyphicon-remove-circle pull-right close-gif"></span>
-                    <div class="result"></div>
-                  </div>
-               
-                    <div class="row chat-box">
-                      <div class="col-md-9 col-sm-9 col-xs-6"><div  class="form-control" id="comment" contenteditable="true"></div></div>
-                      <div class="col-md-1 col-sm-1 col-xs-2"><a href="javascript:void(0)" id="serach-gif" class="btn">gif</a></div>
-                      <div class="col-md-2 col-sm-2 col-xs-2"><a href="javascript:void(0)" class="btn" id="send-comment"><span class="glyphicon glyphicon-send"></span> Enviar</a></div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12 writting"></div>
-                    </div>   
-                 
-
-
-                </div>
-              </div>
-            </div>
+            
             
            
         </div>
       </div>
       
 		    
-
+<script id="template-history" type="x-tmpl-mustache">
+    <div class="app-history">
+      <div class="media ">
+        <div class="media-left">
+          <a href="user/{{username}}">
+            <img class="media-object" src="https://api.adorable.io/avatars/50/{{username}}.png" />
+          </a>
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{title}}</h4>
+         {{{text}}}
+        </div>
+        <div class="app-history-data">Publicado por <strong>{{username}}</strong> el {{date}}
+        
+        </div>
+      </div>
+    </div>
+</script>
 
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>    
+    <script src="../js/bootstrap.min.js"></script>    
 		
-    <script src="js/socket.io.js"></script>
-	  <script src="js/mustache.min.js"></script>
+    <script src="../js/socket.io.js"></script>
+	  <script src="../js/mustache.min.js"></script>
 
     <script type="text/javascript">
 
@@ -268,10 +242,6 @@
           if(usersWritting.indexOf(data.username) == -1){
             usersWritting.push(data.username);
             $('.writting').append('<div class="is_writting" id="'+data.username+'">'+data.username+' esta escribiendo...</div>');
-            setTimeout(function(){
-              $('#'+data.username).remove();
-              usersWritting.splice(data.username, 1);
-            }, 1000);
           }else{
             setTimeout(function(){
               $('#'+data.username).remove();
@@ -287,7 +257,7 @@
         if(width > 992){
           $('.chat-messages').height($(window).height() - 90 - 120);
           $('.app-box').height($(window).height() - 90  - 45);
-          $('#app-histories-container').height($(window).height() - 400 );
+          $('#app-histories-container').height($(window).height() - 90 );
          
         }else{
            $('body').removeClass('overflow');
@@ -388,8 +358,9 @@
         function getHistories(){
          
            $.ajax({
-              url: '/api',
+              url: '/getHistoriesByUser/'+yo,
               type: 'GET',
+           
             }).done(function(data) {
               if(data.histories.length > 0){
                 $('#app-histories-container').html('');
@@ -457,24 +428,6 @@
       });
     </script>
   <% } %>
-<script id="template-history" type="x-tmpl-mustache">
-    <div class="app-history">
-      <div class="media ">
-        <div class="media-left">
-          <a href="user/{{username}}">
-            <img class="media-object" src="https://api.adorable.io/avatars/50/{{username}}.png" />
-          </a>
-        </div>
-        <div class="media-body">
-          <h4 class="media-heading">{{title}}</h4>
-         {{{text}}}
-        </div>
-        <div class="app-history-data">Publicado por <strong>{{username}}</strong> el {{date}}
-        
-        </div>
-      </div>
-    </div>
-</script>
 
 
 
